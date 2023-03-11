@@ -1,0 +1,30 @@
+{
+  "name": "deploy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx src/server.ts",
+    "dev:encrypt-debug": "DEBUG='prisma-field-encryption:*' tsx src/server.ts",
+    "build": "tsup src",
+    "start": "node dist/server.js",
+    "prisma": "prisma studio",
+    "prisma:migrate": "prisma migrate dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "18.14.4",
+    "prisma": "4.11.0",
+    "tsup": "6.6.3",
+    "tsx": "3.12.3",
+    "typescript": "4.9.5"
+  },
+  "dependencies": {
+    "@prisma/client": "4.11.0",
+    "fastify": "4.13.0",
+    "prisma-field-encryption": "^1.4.1",
+    "zod": "3.20.6"
+  }
+}
