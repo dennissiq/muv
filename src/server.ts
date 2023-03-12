@@ -2,6 +2,7 @@ import { PrismaClient } from "@prisma/client"
 import fastify from "fastify"
 import { z } from "zod"
 import { fieldEncryptionMiddleware } from "prisma-field-encryption"
+import { createUserController } from "./useCases/CreateUser"
 
 const app = fastify()
 
@@ -21,27 +22,7 @@ app.get("/users", async () => {
 })
 
 app.post("/users", async (request, reply) => {
-  const createUserSchema = z.object({
-    name: z.string(),
-    username: z.string(),
-    password: z.string(),
-    email: z.string().email(),
-  })
-
-  const { name, username, password, email } = createUserSchema.parse(
-    request.body
-  )
-
-  await prisma.user.create({
-    data: {
-      name,
-      username,
-      password,
-      email,
-    },
-  })
-
-  return reply.status(201).send()
+  return createUserController.handle(request, reply)
 })
 
 app.get("/movies", async () => {
@@ -51,13 +32,13 @@ app.get("/movies", async () => {
 })
 
 app.post("/movies", async (request, reply) => {
-  const createUserSchema = z.object({
+  const createMovieSchema = z.object({
     name: z.string(),
     description: z.string().optional(),
     path: z.string(),
   })
 
-  const { name, description, path } = createUserSchema.parse(request.body)
+  const { name, description, path } = createMovieSchema.parse(request.body)
 
   await prisma.movie.create({
     data: {
