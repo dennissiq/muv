@@ -1,19 +1,11 @@
 import { PrismaClient } from "@prisma/client"
 import fastify from "fastify"
 import { z } from "zod"
-import { fieldEncryptionMiddleware } from "prisma-field-encryption"
 import { createUserController } from "./useCases/CreateUser"
 
 const app = fastify()
 
 const prisma = new PrismaClient()
-
-//encrypt fields
-prisma.$use(
-  fieldEncryptionMiddleware({
-    encryptionKey: process.env.PRISMA_FIELD_ENCRYPTION_KEY,
-  })
-)
 
 app.get("/users", async () => {
   const users = await prisma.user.findMany()

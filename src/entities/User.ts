@@ -1,6 +1,4 @@
 export class User {
-  //   public readonly id!: string
-  //   public readonly createdAt!: Date
   public name!: string
   public username!: string
   public email!: string
